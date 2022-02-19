@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn import preprocessing
 
 def ensemble(preds, weight=None):
     '''
@@ -112,3 +113,35 @@ def visualize_importance(models, feat_train_df):
     ax.grid()
     fig.tight_layout()
     plt.show()
+
+def min_max_df(df):
+    '''
+    データフレームを列ごとに正規化
+    正規化: 最小値0, 最大値1
+    Input:
+        df: pd.DataFrame
+            正規化したいデータフレーム
+    Output:
+        df_mm: pd.DataFrame
+            正規化されたデータフレーム
+    '''
+    mm = preprocessing.MinMaxScaler()
+    df_mm = mm.fit_transform(df)
+
+    return df_mm
+
+def std_df(df):
+    '''
+    データフレームを列ごとに標準化
+    標準化: 平均0, 分散1
+    Input:
+        df: pd.DataFrame
+            標準化したいデータフレーム
+    Output:
+        df_ss: pd.DataFrame
+            標準化されたデータフレーム
+    '''
+    ss = preprocessing.StandardScaler()
+    df_ss = ss.fit_transform(df)
+
+    return df_ss
